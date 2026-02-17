@@ -1,14 +1,7 @@
 
 import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
-
-// Initialize Resend with API Key
-if (!process.env.RESEND_API_KEY) {
-    throw new Error("Missing RESEND_API_KEY");
-}
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { getResend } from '@/lib/resend';
 
 export async function POST(request: Request) {
     try {
@@ -92,6 +85,7 @@ export async function POST(request: Request) {
         `;
 
         try {
+            const resend = getResend();
             const { data: emailData, error: emailError } = await resend.emails.send({
                 from: 'Trinity Driving College <onboarding@resend.dev>', // Update this to your verified domain in production, e.g., 'admin@trinitydriving.com'
                 to: [enrollment.email],

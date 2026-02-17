@@ -1,12 +1,13 @@
 
 import { NextResponse } from 'next/server';
-import { resend } from '@/lib/resend';
+import { getResend } from '@/lib/resend';
 
 export async function POST(request: Request) {
     try {
         const { fullName, email, phone, courseId } = await request.json();
 
         // 1. Send Email Notification to Admin (ocheing999@gmail.com)
+        const resend = getResend();
         const { data, error } = await resend.emails.send({
             from: 'Trinity Driving School <onboarding@resend.dev>', // Use default domain for testing
             to: ['ocheing999@gmail.com'],

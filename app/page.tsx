@@ -1,13 +1,23 @@
 
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import Hero from '@/components/Hero';
-import Stats from '@/components/Stats';
-import Features from '@/components/Features';
-import FeaturedCourses from '@/components/FeaturedCourses';
-import Testimonials from '@/components/Testimonials';
 import Link from 'next/link';
-import Image from 'next/image';
 import type { Course } from '@/types';
+
+// Dynamically import components that are below the fold
+const Stats = dynamic(() => import('@/components/Stats'), {
+  loading: () => <div className="h-48 bg-gray-50 animate-pulse" />,
+});
+const Features = dynamic(() => import('@/components/Features'), {
+  loading: () => <div className="h-96 bg-white animate-pulse" />,
+});
+const FeaturedCourses = dynamic(() => import('@/components/FeaturedCourses'), {
+  loading: () => <div className="h-[600px] bg-gray-50 animate-pulse" />,
+});
+const Testimonials = dynamic(() => import('@/components/Testimonials'), {
+  loading: () => <div className="h-96 bg-white animate-pulse" />,
+});
 
 export const metadata: Metadata = {
   title: 'Trinity Driving College - Home',

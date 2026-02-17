@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { supabase } from '@/lib/supabaseClient';
 import { useEffect, useState } from 'react';
 import { Star } from 'lucide-react';
+import Image from 'next/image';
 
 interface Testimonial {
     id: string;
@@ -72,10 +73,13 @@ export default function Testimonials() {
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-brand-dark/90 mix-blend-multiply z-10" />
-                <img
+                <Image
                     src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070&auto=format&fit=crop"
                     alt="Testimonials Background"
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    quality={60}
+                    sizes="100vw"
                 />
             </div>
 

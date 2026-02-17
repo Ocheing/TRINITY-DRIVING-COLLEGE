@@ -13,6 +13,7 @@ export default function CourseCard({ course }: { course: Course }) {
                         className="object-cover"
                         src={course.image_url}
                         alt={course.title}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                 ) : (
                     <div className="flex items-center justify-center h-full text-gray-400">No Image</div>

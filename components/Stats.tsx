@@ -14,7 +14,7 @@ const stats = [
 
 export default function Stats() {
     return (
-        <div className="bg-brand pt-12 sm:pt-16 pb-12 relative overflow-hidden">
+        <div className="bg-brand pt-8 sm:pt-10 pb-8 relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
                 <div className="absolute right-0 top-0 w-64 h-64 bg-white rounded-full mix-blend-overlay filter blur-3xl -translate-y-1/2 translate-x-1/2"></div>
@@ -22,7 +22,7 @@ export default function Stats() {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="max-w-4xl mx-auto text-center mb-12">
+                <div className="max-w-4xl mx-auto text-center mb-8">
                     <h2 className="text-3xl font-extrabold text-white sm:text-4xl mb-4">
                         Trusted by Thousands of Drivers
                     </h2>
@@ -39,7 +39,7 @@ export default function Stats() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: stat.id * 0.1 }}
-                            className="flex flex-col items-center bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition-colors"
+                            className="flex flex-col items-center bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10 hover:bg-white/20 transition-colors"
                         >
                             <div className="p-3 bg-white/20 rounded-full mb-4 text-white">
                                 <stat.icon className="h-8 w-8" />

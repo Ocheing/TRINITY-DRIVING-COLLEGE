@@ -1,7 +1,7 @@
 
 import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
-import { getResend } from '@/lib/resend';
+import { transporter, mailOptions } from '@/lib/nodemailer';
 
 export async function POST(request: Request) {
     try {
@@ -85,23 +85,12 @@ export async function POST(request: Request) {
         `;
 
         try {
-            const resend = getResend();
-            const { data: emailData, error: emailError } = await resend.emails.send({
-                from: 'Trinity Driving College <onboarding@resend.dev>', // Update this to your verified domain in production, e.g., 'admin@trinitydriving.com'
-                to: [enrollment.email],
+            await transporter.sendMail({
+                ...mailOptions,
+                to: enrollment.email,
                 subject: emailSubject,
                 html: emailBody,
             });
-
-            if (emailError) {
-                console.error('Email Sending Error:', emailError);
-                // Note: We updated the status but failed to send email. 
-                // In production, you might want to log this to a separate system to retry sending.
-                return NextResponse.json({
-                    message: 'Enrollment approved, but failed to send email.',
-                    emailError: emailError
-                }, { status: 200 }); // Still return 200 as the primary action (approval) succeeded
-            }
         } catch (sendError) {
             console.error('Unexpected Email Error:', sendError);
             return NextResponse.json({

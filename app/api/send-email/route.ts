@@ -1,16 +1,15 @@
 
 import { NextResponse } from 'next/server';
-import { getResend } from '@/lib/resend';
+import { transporter, mailOptions } from '@/lib/nodemailer';
 
 export async function POST(request: Request) {
     try {
         const { fullName, email, phone, courseId } = await request.json();
 
         // 1. Send Email Notification to Admin (ocheing999@gmail.com)
-        const resend = getResend();
-        const { data, error } = await resend.emails.send({
-            from: 'Trinity Driving School <onboarding@resend.dev>', // Use default domain for testing
-            to: ['ocheing999@gmail.com'],
+        await transporter.sendMail({
+            ...mailOptions,
+            to: 'ocheing999@gmail.com', // Admin email
             subject: `New Enrollment: ${fullName}`,
             html: `
                 <h1>New Enrollment Received</h1>
@@ -23,14 +22,9 @@ export async function POST(request: Request) {
             `,
         });
 
-        if (error) {
-            console.error('Resend Error:', error);
-            return NextResponse.json({ error: error.message }, { status: 500 });
-        }
-
-        return NextResponse.json({ success: true, data });
-    } catch (error) {
+        return NextResponse.json({ success: true, message: 'Email sent successfully' });
+    } catch (error: any) {
         console.error('Email API Error:', error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
     }
 }

@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { Loader2, Video } from 'lucide-react';
 import type { GalleryItem } from '@/types';
 
@@ -32,10 +33,37 @@ export default function GalleryPage() {
         fetchGallery();
     }, []);
 
+    // Animation variants
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.5
+            }
+        }
+    };
+
     return (
         <div className="bg-white">
             {/* Hero Section */}
-            <div className="relative bg-brand py-24 sm:py-32">
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="relative bg-brand py-24 sm:py-32"
+            >
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute inset-0 bg-brand mix-blend-multiply" />
                     <div className="absolute inset-0 bg-dot-pattern opacity-10" />
@@ -48,7 +76,7 @@ export default function GalleryPage() {
                         A glimpse into life at Trinity Driving College.
                     </p>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Gallery Grid */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
@@ -57,9 +85,18 @@ export default function GalleryPage() {
                         <Loader2 className="h-10 w-10 animate-spin text-brand" />
                     </div>
                 ) : images.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                    <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+                    >
                         {images.map((image) => (
-                            <div key={image.id} className="group relative break-inside-avoid overflow-hidden rounded-lg bg-gray-100 ring-1 ring-gray-900/5 aspect-square hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                            <motion.div
+                                key={image.id}
+                                variants={itemVariants}
+                                className="group relative break-inside-avoid overflow-hidden rounded-lg bg-gray-100 ring-1 ring-gray-900/5 aspect-square hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                            >
                                 {image.type === 'video' ? (
                                     <div className="flex flex-col items-center justify-center h-full bg-gray-900">
                                         <Video className="h-16 w-16 text-white/50 mb-4" />
@@ -74,6 +111,7 @@ export default function GalleryPage() {
                                         alt={image.title}
                                         fill
                                         className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     />
                                 )}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -82,13 +120,17 @@ export default function GalleryPage() {
                                         <p className="text-gray-200 text-sm">{image.category}</p>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 ) : (
-                    <div className="text-center py-24">
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="text-center py-24"
+                    >
                         <p className="text-xl text-gray-500">Gallery is being updated. Check back soon!</p>
-                    </div>
+                    </motion.div>
                 )}
             </div>
         </div>

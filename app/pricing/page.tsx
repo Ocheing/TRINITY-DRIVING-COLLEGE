@@ -1,8 +1,8 @@
-
 'use client';
 
 import { Check, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 interface PricingOption {
     title: string;
@@ -130,84 +130,126 @@ const services: ServiceCategory[] = [
 
 export default function PricingPage() {
     return (
-        <div className="bg-gray-50 min-h-screen py-16 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-16">
-                    <h2 className="text-base font-semibold text-brand tracking-wide uppercase">Transparent Pricing</h2>
-                    <h1 className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
-                        Affordable Driving Courses
-                    </h1>
-                    <p className="max-w-2xl mt-5 mx-auto text-xl text-gray-500">
-                        Choose the category that fits your needs.
-                        <br />
-                        <span className="font-bold text-gray-800">All prices are inclusive of PDL, Assessment, and NTSA Exam.</span>
-                    </p>
+        <div className="bg-gray-50 min-h-screen">
+            {/* Hero Section */}
+            <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+                <div
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{ backgroundImage: "url('/assets/hero.jpg')" }}
+                />
+                <div className="absolute inset-0 bg-black/60" /> {/* Dark overlay */}
+
+                <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-white">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="text-4xl md:text-6xl font-extrabold mb-4"
+                    >
+                        Transparent Pricing
+                    </motion.h1>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                    >
+                        <p className="text-xl md:text-2xl font-light mb-2 text-gray-200">
+                            Affordable Driving Courses
+                        </p>
+                        <p className="text-lg text-gray-300 mb-6">
+                            Choose the category that fits your needs.
+                        </p>
+                        <div className="inline-block bg-white/20 backdrop-blur-md px-6 py-2 rounded-full border border-white/10">
+                            <p className="text-sm sm:text-base font-medium text-white flex items-center gap-2">
+                                <Check className="h-4 w-4 text-green-400" />
+                                All prices are inclusive of PDL, Assessment, and NTSA Exam.
+                            </p>
+                        </div>
+                    </motion.div>
                 </div>
+            </section>
 
-                <div className="grid gap-8 lg:grid-cols-2">
-                    {services.map((service) => (
-                        <div key={service.id} className="flex flex-col bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                            <div className="p-8 pb-4">
-                                <h3 className="text-2xl font-bold text-gray-900 mb-2">{service.name}</h3>
-                                <div className="flex flex-wrap gap-2 mb-6">
-                                    {service.classes.map((cls) => (
-                                        <span key={cls} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                            {cls}
-                                        </span>
-                                    ))}
-                                </div>
+            {/* Pricing Offerings Grid */}
+            <section className="py-16 px-4 sm:px-6 lg:px-8 relative z-20">
+                <div className="max-w-5xl mx-auto">
+                    <div className="grid gap-6 lg:grid-cols-2">
+                        {services.map((service, index) => (
+                            <motion.div
+                                key={service.id}
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                transition={{ duration: 0.6, delay: index * 0.1 }}
+                                className="flex flex-col bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg border border-white/40 overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
+                            >
+                                <div className="p-6 pb-2">
+                                    <h3 className="text-xl font-bold text-gray-900 mb-2">{service.name}</h3>
+                                    <div className="flex flex-wrap gap-2 mb-4">
+                                        {service.classes.map((cls) => (
+                                            <span key={cls} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-blue-100/50 text-blue-800 border border-blue-100">
+                                                {cls}
+                                            </span>
+                                        ))}
+                                    </div>
 
-                                <div className="space-y-4">
-                                    {service.options.map((option, idx) => (
-                                        <div
-                                            key={idx}
-                                            className={`p-4 rounded-xl border ${option.isCombined ? 'bg-amber-50 border-amber-200' : 'bg-gray-50 border-gray-100'}`}
-                                        >
-                                            <div className="flex justify-between items-start">
-                                                <div>
-                                                    <h4 className="font-bold text-gray-900 text-lg">{option.title}</h4>
-                                                    <p className="text-sm text-gray-600 mt-1">{option.description}</p>
-                                                    <div className="flex items-center mt-2 text-xs font-medium text-gray-500 uppercase tracking-wide">
-                                                        <span className="bg-gray-200 px-2 py-1 rounded">{option.lessons}</span>
+                                    <div className="space-y-3">
+                                        {service.options.map((option, idx) => (
+                                            <div
+                                                key={idx}
+                                                className={`p-4 rounded-xl border transition-colors ${option.isCombined
+                                                    ? 'bg-amber-50/40 border-amber-200/50 hover:bg-amber-50/60'
+                                                    : 'bg-gray-50/40 border-gray-200/50 hover:bg-gray-50/60'
+                                                    }`}
+                                            >
+                                                <div className="flex justify-between items-start gap-3">
+                                                    <div>
+                                                        <h4 className="font-bold text-gray-900 text-sm">{option.title}</h4>
+                                                        <p className="text-xs text-gray-600 mt-0.5">{option.description}</p>
+                                                        <div className="flex items-center mt-1.5 text-[10px] font-medium text-gray-500 uppercase tracking-wide">
+                                                            <span className="bg-white/80 px-1.5 py-0.5 rounded shadow-sm border border-gray-100">{option.lessons}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-right whitespace-nowrap">
+                                                        <span className="block text-lg font-extrabold text-brand">{option.price}</span>
                                                     </div>
                                                 </div>
-                                                <div className="text-right">
-                                                    <span className="block text-2xl font-extrabold text-brand">{option.price}</span>
-                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="flex-1 px-8 py-6 bg-gray-50 border-t border-gray-100">
-                                <h4 className="text-sm font-semibold text-gray-900 tracking-wide uppercase mb-4">What's included</h4>
-                                <ul className="grid sm:grid-cols-2 gap-3">
-                                    {service.features.map((feature) => (
-                                        <li key={feature} className="flex items-start">
-                                            <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0" />
-                                            <span className="text-sm text-gray-600">{feature}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                                <div className="flex-1 px-6 py-4 bg-gray-50/30 border-t border-gray-100/50">
+                                    <h4 className="text-[10px] font-semibold text-gray-400 tracking-wider uppercase mb-3">What's included</h4>
+                                    <ul className="grid sm:grid-cols-2 gap-2">
+                                        {service.features.map((feature) => (
+                                            <li key={feature} className="flex items-start">
+                                                <div className="flex-shrink-0 w-4 h-4 rounded-full bg-green-100 flex items-center justify-center mr-2">
+                                                    <Check className="h-2.5 w-2.5 text-green-600" />
+                                                </div>
+                                                <span className="text-xs text-gray-600">{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
 
-                            <div className="p-6 bg-gray-50 border-t border-gray-200">
-                                <Link
-                                    href={`/enroll?category=${service.id}`}
-                                    className="block w-full bg-brand hover:bg-brand-dark text-white text-center font-bold py-3 px-4 rounded-lg transition-colors shadow-md"
-                                >
-                                    Enroll in {service.name}
-                                </Link>
-                                <p className="mt-3 text-center text-xs text-gray-500 flex items-center justify-center">
-                                    <ShieldCheck className="h-4 w-4 mr-1 text-green-600" />
-                                    Inclusive of PDL + Assessment + NTSA Exam
-                                </p>
-                            </div>
-                        </div>
-                    ))}
+                                <div className="p-4 bg-white/40 border-t border-gray-200/50 backdrop-blur-sm">
+                                    <Link
+                                        href={`/enroll?category=${service.id}`}
+                                        className="block w-full bg-brand hover:bg-brand-dark text-white text-center font-bold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm"
+                                    >
+                                        Enroll in {service.name}
+                                    </Link>
+                                    <p className="mt-2 text-center text-[10px] text-gray-500 flex items-center justify-center gap-1 opacity-80">
+                                        <ShieldCheck className="h-3 w-3 text-green-600" />
+                                        Inclusive of PDL + Assessment + NTSA Exam
+                                    </p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     );
 }

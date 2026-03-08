@@ -48,12 +48,12 @@ export default function Footer() {
                     {/* Brand Section */}
                     <div>
                         <div className="flex items-center gap-2 mb-4">
-                            <div className="relative h-10 w-10">
+                            <div className="relative h-10 w-10 rounded-full overflow-hidden">
                                 <Image
                                     src="/assets/logo.jpeg"
                                     alt="Logo"
                                     fill
-                                    className="object-contain"
+                                    className="object-cover mix-blend-screen"
                                 />
                             </div>
                             <h3 className="text-xl font-bold">Trinity Driving</h3>

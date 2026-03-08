@@ -32,7 +32,7 @@ const featuredCoursesData: Course[] = [
     description: 'Comprehensive training for all types of motorcycles (A2) and three-wheelers (A3). Ideal for personal and commercial riders.',
     price: 7500,
     duration: '20 Lessons',
-    image_url: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80',
+    image_url: '/assets/motorcycle.jfif',
     is_published: true
   },
   {
@@ -41,7 +41,7 @@ const featuredCoursesData: Course[] = [
     description: 'Master driving saloon cars with our expert instruction. Choose between Automatic (B1) or Manual (B2) transmission.',
     price: 12500,
     duration: '30 Lessons',
-    image_url: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&q=80',
+    image_url: '/assets/salooncar.jpg',
     is_published: true
   },
   {
@@ -50,7 +50,7 @@ const featuredCoursesData: Course[] = [
     description: 'Professional training for light and medium trucks. Gain the skills needed for a career in commercial transport.',
     price: 13000,
     duration: 'Variable',
-    image_url: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&q=80',
+    image_url: '/assets/lighttruck.jfif',
     is_published: true
   }
 ];

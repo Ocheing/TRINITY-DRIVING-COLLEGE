@@ -37,22 +37,22 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <nav className="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="relative flex justify-between h-16 items-center">
                     {/* Left: Logo */}
                     <div className="flex items-center">
                         <Link href="/" className="flex-shrink-0 flex items-center gap-2 group">
-                            <div className="relative h-10 w-10 sm:h-12 sm:w-12 transition-transform group-hover:scale-105">
+                            <div className="relative h-10 w-10 sm:h-12 sm:w-12 transition-transform group-hover:scale-105 rounded-full overflow-hidden">
                                 <Image
                                     src="/assets/logo.jpeg"
                                     alt="Trinity Driving College Logo"
                                     fill
-                                    className="object-contain"
+                                    className="object-cover mix-blend-screen"
                                     priority
                                 />
                             </div>
-                            <span className="font-bold text-lg sm:text-xl text-gray-900 ml-2 group-hover:text-brand transition-colors">
+                            <span className="font-bold text-lg sm:text-xl text-white ml-2 group-hover:text-brand transition-colors">
                                 <span className="hidden sm:inline">Trinity Driving College</span>
                                 <span className="sm:hidden">Trinity</span>
                             </span>
@@ -65,7 +65,7 @@ export default function Navbar() {
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors hover:text-brand ${pathname === link.href ? 'text-brand border-b-2 border-brand' : 'text-gray-500'
+                                className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors hover:text-brand ${pathname === link.href ? 'text-brand border-b-2 border-brand' : 'text-gray-300'
                                     }`}
                             >
                                 {link.name}
@@ -87,7 +87,7 @@ export default function Navbar() {
                     <div className="flex items-center lg:hidden">
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-brand hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand transition-colors"
+                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-brand hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand transition-colors"
                             aria-expanded={isMenuOpen}
                             aria-controls="mobile-menu"
                             aria-label="Toggle menu"
@@ -112,7 +112,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="lg:hidden bg-white border-b border-gray-200 overflow-hidden shadow-lg absolute w-full left-0 top-16 z-40"
+                        className="lg:hidden bg-gray-900 border-b border-gray-800 overflow-hidden shadow-lg absolute w-full left-0 top-16 z-40"
                     >
                         <div className="px-4 pt-2 pb-6 space-y-2">
                             {navLinks.map((link) => (
@@ -120,14 +120,14 @@ export default function Navbar() {
                                     key={link.href}
                                     href={link.href}
                                     className={`block px-3 py-3 rounded-md text-base font-medium transition-colors ${pathname === link.href
-                                            ? 'text-brand bg-brand/10'
-                                            : 'text-gray-700 hover:text-brand hover:bg-gray-50'
+                                        ? 'text-brand bg-brand/10'
+                                        : 'text-gray-300 hover:text-brand hover:bg-gray-800'
                                         }`}
                                 >
                                     {link.name}
                                 </Link>
                             ))}
-                            <div className="pt-4 mt-4 border-t border-gray-100">
+                            <div className="pt-4 mt-4 border-t border-gray-800">
                                 <Link
                                     href="/enroll"
                                     className="block w-full text-center bg-brand hover:bg-brand-dark text-white px-5 py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg transition-all"

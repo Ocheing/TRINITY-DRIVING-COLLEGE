@@ -171,7 +171,7 @@ export default function ContactPage() {
                                         required
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
-                                        className="shadow-sm focus:ring-brand focus:border-brand block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
+                                        className="shadow-sm focus:ring-brand focus:border-brand block w-full sm:text-sm border-gray-300 rounded-md p-2 border text-gray-900"
                                         placeholder="Your Name"
                                     />
                                 </div>
@@ -189,7 +189,7 @@ export default function ContactPage() {
                                         required
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="shadow-sm focus:ring-brand focus:border-brand block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
+                                        className="shadow-sm focus:ring-brand focus:border-brand block w-full sm:text-sm border-gray-300 rounded-md p-2 border text-gray-900"
                                         placeholder="you@example.com"
                                     />
                                 </div>
@@ -207,7 +207,7 @@ export default function ContactPage() {
                                         required
                                         value={message}
                                         onChange={(e) => setMessage(e.target.value)}
-                                        className="shadow-sm focus:ring-brand focus:border-brand block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
+                                        className="shadow-sm focus:ring-brand focus:border-brand block w-full sm:text-sm border-gray-300 rounded-md p-2 border text-gray-900"
                                         placeholder="How can we help you?"
                                     />
                                 </div>

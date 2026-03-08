@@ -80,7 +80,7 @@ export default function EnrollmentForm() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             fullName: '',
-            email: 'ocheing999@gmail.com', // Pre-filled for testing
+            email: '',
             phone: '',
             category: '',
             courseId: '',
@@ -176,13 +176,18 @@ export default function EnrollmentForm() {
 
     if (success) {
         return (
-            <div className="bg-green-50 border border-green-200 text-green-700 p-6 rounded-lg shadow-sm text-center">
-                <h3 className="font-bold text-2xl mb-2">Thank you for enrolling!</h3>
-                <p className="text-lg">We have received your application successfully.</p>
-                <p className="mt-2 text-sm">Our team will contact you shortly to confirm your schedule.</p>
+            <div className="bg-brand/5 border border-brand/20 text-gray-700 p-8 rounded-2xl shadow-sm text-center">
+                <div className="w-14 h-14 rounded-full bg-brand/10 flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-7 h-7 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                <h3 className="font-bold text-2xl mb-2 text-gray-900">Thank you for enrolling!</h3>
+                <p className="text-base text-gray-600">We have received your application successfully.</p>
+                <p className="mt-2 text-sm text-gray-500">Our team will contact you shortly to confirm your schedule.</p>
                 <button
                     onClick={() => setSuccess(false)}
-                    className="mt-6 text-brand font-medium hover:underline"
+                    className="mt-6 text-brand font-semibold hover:underline transition-colors"
                 >
                     Submit another enrollment
                 </button>
@@ -191,10 +196,10 @@ export default function EnrollmentForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-xl rounded-lg p-8 space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-xl shadow-gray-200/50 rounded-2xl p-8 space-y-6 border border-gray-100" autoComplete="off">
             <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-900">Start Your Journey</h2>
-                <p className="text-gray-500">Fill in the form below to enroll in a course.</p>
+                <p className="text-gray-500 text-sm mt-1">Fill in the form below to enroll in a course.</p>
             </div>
 
             <div>
@@ -206,6 +211,7 @@ export default function EnrollmentForm() {
                         id="fullName"
                         {...register('fullName')}
                         type="text"
+                        autoComplete="off"
                         className={`appearance-none block w-full px-3 py-2 border ${errors.fullName ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-brand focus:border-brand sm:text-sm`}
                         placeholder="John Doe"
                     />
@@ -224,8 +230,9 @@ export default function EnrollmentForm() {
                         id="email"
                         {...register('email')}
                         type="email"
+                        autoComplete="off"
                         className={`appearance-none block w-full px-3 py-2 border ${errors.email ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-brand focus:border-brand sm:text-sm`}
-                        placeholder="john@example.com"
+                        placeholder="Enter your email"
                     />
                     {errors.email && (
                         <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
@@ -242,6 +249,7 @@ export default function EnrollmentForm() {
                         id="phone"
                         {...register('phone')}
                         type="tel"
+                        autoComplete="off"
                         className={`appearance-none block w-full px-3 py-2 border ${errors.phone ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-brand focus:border-brand sm:text-sm`}
                         placeholder="+254 700 000 000"
                     />
@@ -313,7 +321,7 @@ export default function EnrollmentForm() {
                 <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-brand hover:bg-brand-dark'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand transition-colors`}
+                    className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-brand hover:bg-brand-dark shadow-[0_4px_14px_-4px_var(--color-brand)] hover:shadow-[0_6px_20px_-4px_var(--color-brand)]'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand transition-all duration-300`}
                 >
                     {loading ? 'Submitting...' : 'Enroll Now'}
                 </button>

@@ -13,15 +13,15 @@ export async function POST(request: Request) {
         await transporter.sendMail({
             ...mailOptions,
             to: email,
-            subject: 'Welcome to Trinity Driving College Newsletter',
+            subject: 'Welcome to Trinity Driving School Newsletter',
             html: `
                 <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
                     <h1>Thank you for subscribing!</h1>
-                    <p>You have successfully subscribed to the Trinity Driving College newsletter.</p>
+                    <p>You have successfully subscribed to the Trinity Driving School newsletter.</p>
                     <p>We'll keep you updated with the latest news, driving tips, and course offers.</p>
                     <br/>
                     <p style="font-size: 12px; color: #666;">
-                        You are receiving this email because you subscribed to Trinity Driving College. 
+                        You are receiving this email because you subscribed to Trinity Driving School. 
                     </p>
                 </div>
             `,

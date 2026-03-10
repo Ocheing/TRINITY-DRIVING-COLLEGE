@@ -130,7 +130,7 @@ export default function AboutPage() {
                             </div>
                             <h3 className="text-xl font-bold text-white mb-4">Who We Are</h3>
                             <p className="text-gray-400 text-sm leading-relaxed">
-                                Established with a mission to create safer roads, Trinity Driving College has been a leader in driver education for over a decade. We combine theoretical knowledge with practical experience to ensure our students become responsible drivers. Based at our Training Center in Nairobi, we serve students from across the city and beyond.
+                                Established with a mission to create safer roads, Trinity Driving School has been a leader in driver education for over a decade. We combine theoretical knowledge with practical experience to ensure our students become responsible drivers. Based at our Training Center in Nairobi, we serve students from across the city and beyond.
                             </p>
                         </div>
                     </motion.div>

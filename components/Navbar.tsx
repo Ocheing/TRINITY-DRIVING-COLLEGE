@@ -46,15 +46,14 @@ export default function Navbar() {
                             <div className="relative h-10 w-10 sm:h-12 sm:w-12 transition-transform group-hover:scale-105 rounded-full overflow-hidden">
                                 <Image
                                     src="/assets/logo.jpeg"
-                                    alt="Trinity Driving College Logo"
+                                    alt="Trinity Driving School Logo"
                                     fill
                                     className="object-cover mix-blend-screen"
                                     priority
                                 />
                             </div>
                             <span className="font-bold text-lg sm:text-xl text-white ml-2 group-hover:text-brand transition-colors">
-                                <span className="hidden sm:inline">Trinity Driving College</span>
-                                <span className="sm:hidden">Trinity</span>
+                                Trinity<span className="text-blue-500">DS</span>
                             </span>
                         </Link>
                     </div>

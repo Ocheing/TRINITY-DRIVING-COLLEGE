@@ -1,7 +1,7 @@
 
-# Trinity Driving College Platform
+# Trinity Driving School Platform
 
-A production-ready website for Trinity Driving College with student enrollment, course management, and admin dashboard.
+A production-ready website for Trinity Driving School with student enrollment, course management, and admin dashboard.
 
 ## Tech Stack
 

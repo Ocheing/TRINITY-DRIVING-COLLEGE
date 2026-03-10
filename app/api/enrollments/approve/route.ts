@@ -76,12 +76,12 @@ export async function POST(request: Request) {
 
         // 7. Send Approval Email (using Resend)
         // Ensure you have a verified domain on Resend or use 'onboarding@resend.dev' for testing
-        const emailSubject = 'Enrollment Approved – Trinity Driving College';
+        const emailSubject = 'Enrollment Approved – Trinity Driving School';
         const emailBody = `
             <p>Hello ${enrollment.full_name},</p>
             <p>Congratulations! Your enrollment for <strong>${enrollment.course_name}</strong> has been approved.</p>
             <p>Our team will contact you shortly with the next steps.</p>
-            <p>Thank you for choosing <strong>Trinity Driving College</strong>.</p>
+            <p>Thank you for choosing <strong>Trinity Driving School</strong>.</p>
         `;
 
         try {

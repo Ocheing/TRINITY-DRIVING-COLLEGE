@@ -73,7 +73,7 @@ export default function GalleryPage() {
                         Our Gallery
                     </h1>
                     <p className="mt-6 max-w-2xl mx-auto text-xl text-blue-100">
-                        A glimpse into life at Trinity Driving College.
+                        A glimpse into life at Trinity Driving School.
                     </p>
                 </div>
             </motion.div>

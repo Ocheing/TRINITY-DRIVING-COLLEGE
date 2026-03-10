@@ -47,7 +47,7 @@ export default function SignupPage() {
                     Create your account
                 </h2>
                 <p className="mt-2 text-center text-sm text-blue-200">
-                    Join Trinity Driving College today
+                    Join Trinity Driving School today
                 </p>
             </div>
 

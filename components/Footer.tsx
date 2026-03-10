@@ -165,7 +165,7 @@ export default function Footer() {
                 </div>
 
                 <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
-                    <p>&copy; {new Date().getFullYear()} Trinity Driving College. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} Trinity Driving School. All rights reserved.</p>
                     <div className="flex items-center mt-4 md:mt-0 space-x-4">
                         <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
                         <span className="text-gray-700">|</span>

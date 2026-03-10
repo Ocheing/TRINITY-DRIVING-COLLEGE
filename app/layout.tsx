@@ -7,19 +7,19 @@ import ClientLayout from '@/components/ClientLayout';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Trinity Driving College',
+  title: 'Trinity Driving School',
   description: 'Professional driving instruction and certification in Kenya.',
   openGraph: {
-    title: 'Trinity Driving College',
+    title: 'Trinity Driving School',
     description: 'Learn to drive safely and confidently with our expert instructors.',
     url: 'https://trinitydriving.co.ke',
-    siteName: 'Trinity Driving College',
+    siteName: 'Trinity Driving School',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Trinity Driving College',
+        alt: 'Trinity Driving School',
       },
     ],
     locale: 'en_KE',

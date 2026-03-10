@@ -124,7 +124,7 @@ export default function TestimonialsPage() {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="text-sm md:text-base text-gray-300 max-w-lg mx-auto"
                     >
-                        Hear from the thousands of drivers who passed with Trinity Driving College.
+                        Hear from the thousands of drivers who passed with Trinity Driving School.
                     </motion.p>
                 </div>
 

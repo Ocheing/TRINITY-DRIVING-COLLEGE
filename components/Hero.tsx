@@ -9,7 +9,7 @@ const slides = [
     {
         title: "Master the Road",
         highlight: "With Confidence",
-        description: "Join Trinity Driving College for expert instruction, flexible scheduling, and a proven track record of success. Your journey to independence starts here."
+        description: "Join Trinity Driving School for expert instruction, flexible scheduling, and a proven track record of success. Your journey to independence starts here."
     },
     {
         title: "Expert Instructors",

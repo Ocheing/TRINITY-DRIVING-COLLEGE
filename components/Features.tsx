@@ -45,7 +45,7 @@ export default function Features() {
                 <div className="text-center">
                     <h2 className="text-base font-semibold text-brand tracking-wide uppercase">Why Choose Us</h2>
                     <h3 className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                        Why Choose Trinity Driving College?
+                        Why Choose Trinity Driving School?
                     </h3>
                     <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
                         We provide top-tier driving education with benefits designed for your convenience and success.

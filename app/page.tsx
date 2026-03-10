@@ -20,8 +20,8 @@ const Testimonials = dynamic(() => import('@/components/Testimonials'), {
 });
 
 export const metadata: Metadata = {
-  title: 'Trinity Driving College - Home',
-  description: 'Learn to drive with confidence at Trinity Driving College. Expert instructors, modern fleet, and flexible scheduling.',
+  title: 'Trinity Driving School - Home',
+  description: 'Learn to drive with confidence at Trinity Driving School. Expert instructors, modern fleet, and flexible scheduling.',
 };
 
 // Placeholder data for featured courses

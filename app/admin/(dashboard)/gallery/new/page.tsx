@@ -2,14 +2,16 @@
 'use client';
 
 import { useState } from 'react';
-import { supabase } from '@/lib/supabaseClient';
+import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { Loader2, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export default function NewGalleryItemPage() {
+    const supabase = createClient();
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [file, setFile] = useState<File | null>(null);
@@ -19,6 +21,7 @@ export default function NewGalleryItemPage() {
         if (!file || !title || !category) return;
 
         setLoading(true);
+        setError('');
         try {
             // 1. Upload File
             const fileExt = file.name.split('.').pop();
@@ -54,9 +57,9 @@ export default function NewGalleryItemPage() {
             if (dbError) throw dbError;
 
             router.push('/admin/gallery');
-        } catch (error) {
-            console.error('Error creating gallery item:', error);
-            alert('Error creating gallery item. Please try again.');
+        } catch (err: any) {
+            console.error('Error creating gallery item:', err);
+            setError(err.message || 'Error creating gallery item. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -72,6 +75,12 @@ export default function NewGalleryItemPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="bg-white shadow rounded-lg p-6 space-y-6">
+                {error && (
+                    <div className="bg-red-50 border-l-4 border-red-500 p-4">
+                        <p className="text-sm text-red-700">{error}</p>
+                    </div>
+                )}
+                
                 <div>
                     <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title / Caption</label>
                     <input

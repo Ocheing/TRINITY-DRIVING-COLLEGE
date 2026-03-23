@@ -62,7 +62,7 @@ export default function Hero() {
                                 <div className="flex flex-col">
                                     <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl mb-6">
                                         {slides[currentSlide].title} <br />
-                                        <span className="text-brand">{slides[currentSlide].highlight}</span>
+                                        <span className="text-accent">{slides[currentSlide].highlight}</span>
                                     </h1>
 
                                     <p className="mt-6 text-xl text-gray-200 max-w-2xl">
@@ -82,7 +82,7 @@ export default function Hero() {
                     >
                         <Link
                             href="/enroll"
-                            className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-full shadow-lg text-white bg-brand hover:bg-brand-dark transition-all hover:scale-105 transform duration-200"
+                            className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-full shadow-lg text-white bg-accent hover:bg-accent-dark transition-all hover:scale-105 transform duration-200"
                         >
                             Enroll Now
                         </Link>
@@ -100,7 +100,7 @@ export default function Hero() {
                             <button
                                 key={index}
                                 onClick={() => setCurrentSlide(index)}
-                                className={`h-1.5 rounded-full transition-all duration-300 ${index === currentSlide ? 'w-8 bg-brand' : 'w-2 bg-white/40 hover:bg-white/60'}`}
+                                className={`h-1.5 rounded-full transition-all duration-300 ${index === currentSlide ? 'w-8 bg-accent' : 'w-2 bg-white/40 hover:bg-white/60'}`}
                                 aria-label={`Go to slide ${index + 1}`}
                             />
                         ))}

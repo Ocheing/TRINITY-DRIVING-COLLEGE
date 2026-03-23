@@ -240,7 +240,7 @@ export default function ServicesPage() {
                                 custom={i}
                                 variants={fadeUp}
                                 viewport={{ once: true, margin: '-50px' }}
-                                className="group bg-[#111621] border border-[#1C2538] p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_12px_40px_rgba(14,165,233,0.15)] hover:border-brand/40 transition-all duration-300 flex flex-col items-center text-center backdrop-blur-sm"
+                                className="group bg-[#111621] border border-[#1C2538] p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_12px_40px_rgba(16,166,233,0.15)] hover:border-brand/40 transition-all duration-300 flex flex-col items-center text-center backdrop-blur-sm"
                             >
                                 <div className="w-16 h-16 rounded-2xl bg-[#1A2234] border border-[#232F46] flex items-center justify-center mb-6 shadow-sm group-hover:bg-brand/10 group-hover:border-brand/20 transition-colors">
                                     <srv.icon className="w-8 h-8 text-brand" />
@@ -277,7 +277,7 @@ export default function ServicesPage() {
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
                             <Link
                                 href="/contact"
-                                className="inline-flex w-full sm:w-auto items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-brand text-white font-bold shadow-[0_8px_20px_-8px_var(--color-brand)] hover:shadow-[0_12px_25px_-8px_var(--color-brand)] hover:bg-brand-light transition-all duration-300 transform hover:-translate-y-0.5"
+                                className="inline-flex w-full sm:w-auto items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-accent text-white font-bold shadow-[0_8px_20px_-8px_var(--color-accent)] hover:shadow-[0_12px_25px_-8px_var(--color-accent)] hover:bg-accent-light transition-all duration-300 transform hover:-translate-y-0.5"
                             >
                                 <PhoneCall className="w-5 h-5" />
                                 Free Consultation
@@ -313,7 +313,7 @@ function ServiceCard({ category, index }: { category: any; index: number }) {
             className={`group flex flex-col ${isImageRight ? 'md:flex-row-reverse' : 'md:flex-row'} 
             bg-[#111621] border border-[#1C2538] rounded-[2rem] overflow-hidden 
             shadow-[0_8px_30px_rgb(0,0,0,0.1)] 
-            hover:shadow-[0_8px_40px_rgba(14,165,233,0.15)] 
+            hover:shadow-[0_8px_40px_rgba(16,166,233,0.15)] 
             hover:border-brand/30 transition-all duration-500`}
         >
             {/* Image side */}
@@ -365,7 +365,7 @@ function ServiceCard({ category, index }: { category: any; index: number }) {
                 <div>
                     <Link
                         href="/enroll"
-                        className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-brand text-white font-bold text-sm hover:shadow-[0_10px_20px_-10px_var(--color-brand)] hover:bg-brand-light transition-all duration-300 transform hover:-translate-y-0.5"
+                        className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-accent text-white font-bold text-sm hover:shadow-[0_10px_20px_-10px_var(--color-accent)] hover:bg-accent-light transition-all duration-300 transform hover:-translate-y-0.5"
                     >
                         <ArrowRight className="w-4 h-4" />
                         Enroll Now

@@ -146,7 +146,7 @@ export default function AboutPage() {
                         <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-brand/5 rounded-full blur-3xl group-hover:bg-brand/10 transition-colors" />
 
                         <div className="relative z-10">
-                            <div className="w-14 h-14 rounded-full bg-brand flex items-center justify-center mx-auto mb-5 shadow-[0_0_20px_rgba(14,165,233,0.3)]">
+                            <div className="w-14 h-14 rounded-full bg-brand flex items-center justify-center mx-auto mb-5 shadow-[0_0_20px_rgba(16,166,233,0.3)]">
                                 <Award className="w-6 h-6 text-white" />
                             </div>
                             <h3 className="text-xl font-bold text-white mb-4">Accreditation & Values</h3>
@@ -207,7 +207,7 @@ export default function AboutPage() {
                                     className="relative pl-14 md:pl-16"
                                 >
                                     {/* Dot on timeline */}
-                                    <div className="absolute left-2.5 md:left-4.5 top-4 w-3 h-3 rounded-full bg-brand border-2 border-[#0a0e17] shadow-[0_0_8px_rgba(14,165,233,0.5)]" />
+                                    <div className="absolute left-2.5 md:left-4.5 top-4 w-3 h-3 rounded-full bg-brand border-2 border-[#0a0e17] shadow-[0_0_8px_rgba(16,166,233,0.5)]" />
 
                                     {/* Card */}
                                     <div className="bg-white border border-gray-100 shadow-lg hover:shadow-xl hover:border-brand/30 rounded-xl p-5 transition-all">
@@ -255,7 +255,7 @@ export default function AboutPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                                className="bg-[#0ea5e9] border border-[#0284c7] rounded-2xl p-6 text-center hover:shadow-2xl transition-all group shadow-lg"
+                                className="bg-brand border border-brand-dark rounded-2xl p-6 text-center hover:shadow-2xl transition-all group shadow-lg"
                             >
                                 {/* Photo */}
                                 <div className="relative w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white/30 group-hover:border-white transition-colors">
@@ -392,7 +392,7 @@ export default function AboutPage() {
                     >
                         <Link
                             href="/enroll"
-                            className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-brand text-white font-bold text-sm shadow-[0_6px_20px_-6px_var(--color-brand)] hover:brightness-110 transition-all"
+                            className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-accent text-white font-bold text-sm shadow-[0_6px_20px_-6px_var(--color-accent)] hover:brightness-110 transition-all"
                         >
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342" />

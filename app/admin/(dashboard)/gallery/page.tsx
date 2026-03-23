@@ -2,13 +2,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabaseClient';
+import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Trash2, Plus, Image as ImageIcon, Video, Loader2 } from 'lucide-react';
 import type { GalleryItem } from '@/types';
 
 export default function AdminGalleryPage() {
+    const supabase = createClient();
     const [items, setItems] = useState<GalleryItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -74,13 +74,15 @@ export default function AdminGalleryPage() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold text-gray-900">Gallery Management</h1>
-                <Link
-                    href="/admin/gallery/new"
-                    className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand hover:bg-brand-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand"
-                >
-                    <Plus className="h-5 w-5 mr-2" />
-                    Add New Item
-                </Link>
+                {items.length > 0 && (
+                    <Link
+                        href="/admin/gallery/new"
+                        className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand hover:bg-brand-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand"
+                    >
+                        <Plus className="h-5 w-5 mr-2" />
+                        Add New Item
+                    </Link>
+                )}
             </div>
 
             {items.length === 0 ? (
@@ -102,18 +104,18 @@ export default function AdminGalleryPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {items.map((item) => (
                         <div key={item.id} className="bg-white rounded-lg shadow overflow-hidden group relative">
-                            <div className="relative h-48 w-full bg-gray-100">
+                            <div className="relative h-48 w-full bg-gray-100 overflow-hidden">
                                 {item.type === 'video' ? (
-                                    <div className="flex items-center justify-center h-full">
+                                    <div className="absolute inset-0 flex items-center justify-center w-full h-full bg-gray-800">
                                         <Video className="h-12 w-12 text-gray-400" />
                                         <span className="sr-only">Video</span>
                                     </div>
                                 ) : (
-                                    <Image
+                                    <img
                                         src={item.image_url}
                                         alt={item.title}
-                                        fill
-                                        className="object-cover"
+                                        loading="lazy"
+                                        className="absolute inset-0 w-full h-full object-cover object-center"
                                     />
                                 )}
                                 <div className="absolute top-2 right-2 bg-white/90 backdrop-blur rounded p-1">

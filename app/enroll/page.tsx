@@ -18,7 +18,7 @@ export default function EnrollPage() {
                         <span className="text-xs font-bold text-brand tracking-widest uppercase">Enrollment</span>
                     </div>
                     <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
-                        Enroll at <span className="text-brand">Trinity</span> Driving College
+                        Enroll at <span className="text-brand">Trinity</span> Driving School
                     </h1>
                     <p className="text-gray-400 text-sm md:text-base max-w-lg mx-auto">
                         Secure your spot today and start your driving journey with expert instructors.

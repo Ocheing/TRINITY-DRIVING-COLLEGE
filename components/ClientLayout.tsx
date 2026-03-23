@@ -8,7 +8,7 @@ import Footer from './Footer';
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     // Hide public nav/footer on admin routes and login auth pages if desired
-    const isStandalone = pathname?.startsWith('/admin') || pathname?.startsWith('/login') || pathname?.startsWith('/signup');
+    const isStandalone = pathname?.startsWith('/admin') || pathname?.startsWith('/admin-login') || pathname?.startsWith('/admin-signup');
 
     return (
         <div className="flex flex-col min-h-screen">

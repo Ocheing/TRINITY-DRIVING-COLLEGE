@@ -37,7 +37,7 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+        <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="relative flex justify-between h-16 items-center">
                     {/* Left: Logo */}
@@ -48,12 +48,12 @@ export default function Navbar() {
                                     src="/assets/logo.jpeg"
                                     alt="Trinity Driving School Logo"
                                     fill
-                                    className="object-cover mix-blend-screen"
+                                    className="object-cover mix-blend-multiply"
                                     priority
                                 />
                             </div>
-                            <span className="font-bold text-lg sm:text-xl text-white ml-2 group-hover:text-brand transition-colors">
-                                Trinity<span className="text-blue-500">DS</span>
+                            <span className="font-bold text-lg sm:text-xl text-[#800000] ml-2 group-hover:text-accent-dark transition-colors">
+                                Trinity<span className="text-gray-900">DS</span>
                             </span>
                         </Link>
                     </div>
@@ -64,7 +64,7 @@ export default function Navbar() {
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors hover:text-brand ${pathname === link.href ? 'text-brand border-b-2 border-brand' : 'text-gray-300'
+                                className={`inline-flex items-center px-1 pt-1 text-sm font-bold transition-colors hover:text-[#5c0000] ${pathname === link.href ? 'text-[#5c0000] border-b-2 border-[#800000]' : 'text-[#800000]'
                                     }`}
                             >
                                 {link.name}
@@ -76,7 +76,7 @@ export default function Navbar() {
                     <div className="hidden lg:flex lg:items-center gap-4">
                         <Link
                             href="/enroll"
-                            className="bg-brand hover:bg-brand-dark text-white px-5 py-2 rounded-full text-sm font-medium shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+                            className="bg-[#800000] hover:bg-[#5c0000] text-white px-7 py-2.5 rounded-full text-sm font-bold tracking-wide shadow-[0_8px_20px_-6px_#800000] hover:shadow-[0_12px_25px_-8px_#5c0000] transition-all duration-300 transform hover:-translate-y-0.5"
                         >
                             Enroll Now
                         </Link>
@@ -86,7 +86,7 @@ export default function Navbar() {
                     <div className="flex items-center lg:hidden">
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-brand hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand transition-colors"
+                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-accent hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors"
                             aria-expanded={isMenuOpen}
                             aria-controls="mobile-menu"
                             aria-label="Toggle menu"
@@ -111,25 +111,25 @@ export default function Navbar() {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="lg:hidden bg-gray-900 border-b border-gray-800 overflow-hidden shadow-lg absolute w-full left-0 top-16 z-40"
+                        className="lg:hidden bg-white border-b border-gray-100 overflow-hidden shadow-lg absolute w-full left-0 top-16 z-40"
                     >
                         <div className="px-4 pt-2 pb-6 space-y-2">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className={`block px-3 py-3 rounded-md text-base font-medium transition-colors ${pathname === link.href
-                                        ? 'text-brand bg-brand/10'
-                                        : 'text-gray-300 hover:text-brand hover:bg-gray-800'
+                                    className={`block px-3 py-3 rounded-md text-base font-bold transition-colors ${pathname === link.href
+                                        ? 'text-[#5c0000] bg-[#800000]/10'
+                                        : 'text-[#800000] hover:text-[#5c0000] hover:bg-[#800000]/5'
                                         }`}
                                 >
                                     {link.name}
                                 </Link>
                             ))}
-                            <div className="pt-4 mt-4 border-t border-gray-800">
+                            <div className="pt-4 mt-4 border-t border-gray-100">
                                 <Link
                                     href="/enroll"
-                                    className="block w-full text-center bg-brand hover:bg-brand-dark text-white px-5 py-3 rounded-lg text-base font-medium shadow-md hover:shadow-lg transition-all"
+                                    className="block w-full text-center bg-[#800000] hover:bg-[#5c0000] text-white px-5 py-3.5 rounded-xl text-base font-bold tracking-wide shadow-[0_8px_20px_-6px_#800000] hover:shadow-[0_12px_25px_-8px_#5c0000] transition-all duration-300"
                                 >
                                     Enroll Now
                                 </Link>

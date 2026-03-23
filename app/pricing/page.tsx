@@ -187,12 +187,12 @@ export default function PricingPage() {
                                 viewport={{ once: true, margin: "-50px" }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                                 className={`flex flex-col flex-1 min-w-[260px] bg-white rounded-2xl overflow-hidden transition-all duration-300
-                                ${plan.highlight ? 'border border-brand shadow-[0_10px_40px_rgba(14,165,233,0.15)] transform -translate-y-1' : 'border border-gray-200 shadow-sm hover:shadow-md hover:border-brand/30'}`}
+                                ${plan.highlight ? 'border border-accent shadow-[0_10px_40px_rgba(135,35,45,0.15)] transform -translate-y-1' : 'border border-gray-200 shadow-sm hover:shadow-md hover:border-brand/30'}`}
                             >
                                 {/* Header Info */}
                                 <div className="p-6 text-center flex flex-col items-center relative bg-gray-50/50">
                                     {plan.highlight && (
-                                        <div className="absolute top-0 left-0 w-full h-1 bg-brand" />
+                                        <div className="absolute top-0 left-0 w-full h-1 bg-accent" />
                                     )}
 
                                     <div className={`px-3 py-1 rounded-full text-[9px] font-extrabold tracking-wider mb-4 ${plan.badgeCls.replace('bg-[#1A2234]', 'bg-brand/10').replace('text-brand', 'text-brand').replace('border-[#232F46]', 'border-brand/20')}`}>
@@ -244,7 +244,7 @@ export default function PricingPage() {
                                     <Link
                                         href={`/enroll?category=${plan.id}`}
                                         className={`w-full flex items-center justify-center gap-2 py-3 md:py-3.5 rounded-lg font-bold text-[13px] md:text-sm transition-all
-                                        ${plan.highlight ? 'bg-brand text-white shadow-[0_6px_15px_-6px_var(--color-brand)] hover:brightness-110' : 'bg-gray-50 text-gray-900 border border-gray-200 hover:bg-gray-100 hover:border-gray-300'}`}
+                                        ${plan.highlight ? 'bg-accent text-white shadow-[0_6px_15px_-6px_var(--color-accent)] hover:brightness-110' : 'bg-gray-50 text-gray-900 border border-gray-200 hover:bg-gray-100 hover:border-gray-300'}`}
                                     >
                                         Get Started
                                         <ArrowRight className="w-3.5 h-3.5" />
@@ -422,7 +422,7 @@ export default function PricingPage() {
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
                             <Link
                                 href="/enroll"
-                                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 rounded-full bg-brand text-white font-bold text-sm shadow-[0_6px_15px_-5px_var(--color-brand)] hover:shadow-[0_10px_20px_-5px_var(--color-brand)] hover:bg-brand-light transition-all duration-300"
+                                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 rounded-full bg-accent text-white font-bold text-sm shadow-[0_6px_15px_-5px_var(--color-accent)] hover:shadow-[0_10px_20px_-5px_var(--color-accent)] hover:bg-accent-light transition-all duration-300"
                             >
                                 <GraduationCap className="w-4 h-4" />
                                 Enroll Now
@@ -471,7 +471,7 @@ function FAQItem({ faq, index }: { faq: any; index: number }) {
                         transition={{ duration: 0.3, ease: 'easeInOut' }}
                         className="overflow-hidden bg-gray-50/50"
                     >
-                        <div className="px-5 pb-5 pt-0 text-gray-600 text-xs md:text-sm leading-relaxed border-t border-gray-100 mt-2 pt-4">
+                        <div className="px-5 pb-5 text-gray-600 text-xs md:text-sm leading-relaxed border-t border-gray-100 pt-4">
                             {faq.a}
                         </div>
                     </motion.div>

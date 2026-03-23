@@ -2,14 +2,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabaseClient';
-import Image from 'next/image';
+import { createClient } from '@/utils/supabase/client';
 import { Mail, Phone, Award, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { Instructor } from '@/types';
 
 export default function InstructorsPage() {
+    const supabase = createClient();
     const [instructors, setInstructors] = useState<Instructor[]>([]);
     const [loading, setLoading] = useState(true);
+    const [visibleCount, setVisibleCount] = useState(6);
+    const [loadingMore, setLoadingMore] = useState(false);
 
     useEffect(() => {
         const fetchInstructors = async () => {
@@ -57,61 +60,111 @@ export default function InstructorsPage() {
                         <Loader2 className="h-10 w-10 animate-spin text-brand" />
                     </div>
                 ) : instructors.length > 0 ? (
-                    <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-                        {instructors.map((instructor) => (
-                            <div key={instructor.id} className="flex flex-col sm:flex-row bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
-                                <div className="relative h-64 sm:h-auto sm:w-1/3 min-h-[250px]">
-                                    <Image
-                                        src={instructor.image_url}
-                                        alt={instructor.name}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                                <div className="flex-1 p-8 flex flex-col justify-between">
-                                    <div>
-                                        <div className="flex justify-between items-start">
+                    <>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <AnimatePresence>
+                                {instructors.slice(0, visibleCount).map((instructor, idx) => (
+                                    <motion.div
+                                        key={instructor.id}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, margin: "-10px" }}
+                                        transition={{ duration: 0.4, delay: (idx % 6) * 0.08 }}
+                                        className="flex flex-col bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 h-full group"
+                                    >
+                                        <div className="relative h-64 w-full shrink-0 overflow-hidden">
+                                            <img
+                                                src={instructor.image_url}
+                                                alt={instructor.name}
+                                                loading="lazy"
+                                                className="absolute inset-0 object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500 ease-out"
+                                            />
+                                        </div>
+                                        <div className="flex-1 p-6 flex flex-col">
                                             <div>
-                                                <h3 className="text-2xl font-bold text-gray-900">{instructor.name}</h3>
-                                                <p className="text-brand font-medium">{instructor.role}</p>
+                                                <h3 className="text-xl font-bold text-gray-900 group-hover:text-brand transition-colors">{instructor.name}</h3>
+                                                <p className="text-brand font-medium text-sm mt-1">{instructor.role}</p>
+                                            </div>
+                                            <p className="mt-4 text-gray-600 leading-relaxed text-sm line-clamp-3">
+                                                {instructor.bio}
+                                            </p>
+
+                                            {instructor.certifications && instructor.certifications.length > 0 && (
+                                                <div className="mt-5">
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {instructor.certifications.map((cert) => (
+                                                            <span key={cert} className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-gray-100 text-gray-600 uppercase tracking-wider">
+                                                                {cert}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            <div className="mt-auto pt-6 flex flex-wrap items-center gap-4">
+                                                <button className="text-xs font-semibold text-gray-500 hover:text-brand flex items-center gap-1.5 transition-colors cursor-pointer">
+                                                    <Mail className="h-3.5 w-3.5" /> Message
+                                                </button>
+                                                <button className="text-xs font-semibold text-gray-500 hover:text-brand flex items-center gap-1.5 transition-colors cursor-pointer">
+                                                    <Phone className="h-3.5 w-3.5" /> Book
+                                                </button>
                                             </div>
                                         </div>
-                                        <p className="mt-4 text-gray-600 leading-relaxed line-clamp-4">
-                                            {instructor.bio}
-                                        </p>
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+                        </div>
 
-                                        {instructor.certifications && instructor.certifications.length > 0 && (
-                                            <div className="mt-6">
-                                                <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wide flex items-center gap-2">
-                                                    <Award className="h-4 w-4 text-brand" /> Certifications
-                                                </h4>
-                                                <div className="mt-2 flex flex-wrap gap-2">
-                                                    {instructor.certifications.map((cert) => (
-                                                        <span key={cert} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-brand-dark">
-                                                            {cert}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
+                        {/* ── Load More Button ── */}
+                        {visibleCount < instructors.length && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="mt-14 flex flex-col items-center gap-4"
+                            >
+                                <p className="text-sm text-gray-500 font-medium">
+                                    Showing <span className="text-gray-900">{visibleCount}</span> of{' '}
+                                    <span className="text-gray-900">{instructors.length}</span> instructors
+                                </p>
+                                <button
+                                    onClick={() => {
+                                        setLoadingMore(true);
+                                        setTimeout(() => {
+                                            setVisibleCount(prev => prev + 6);
+                                            setLoadingMore(false);
+                                        }, 400);
+                                    }}
+                                    disabled={loadingMore}
+                                    className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-brand to-blue-700 text-white font-semibold text-sm shadow-lg hover:shadow-brand/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                                >
+                                    {loadingMore ? (
+                                        <>
+                                            <Loader2 className="h-4 w-4 animate-spin" />
+                                            Loading...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Award className="h-4 w-4" />
+                                            Load More Instructors
+                                        </>
+                                    )}
+                                </button>
+                            </motion.div>
+                        )}
 
-                                    <div className="mt-8 flex items-center gap-4 border-t border-gray-100 pt-4">
-                                        <button className="text-sm font-medium text-gray-500 hover:text-brand flex items-center gap-2 transition-colors">
-                                            <Mail className="h-4 w-4" /> Message
-                                        </button>
-                                        <button className="text-sm font-medium text-gray-500 hover:text-brand flex items-center gap-2 transition-colors">
-                                            <Phone className="h-4 w-4" /> Book Session
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                        {!loadingMore && visibleCount >= instructors.length && instructors.length > 6 && (
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="mt-12 text-center text-sm font-medium text-gray-400"
+                            >
+                                ✓ All instructors loaded
+                            </motion.p>
+                        )}
+                    </>
                 ) : (
-                    <div className="text-center py-24">
-                        <p className="text-xl text-gray-500">Currently accepting new instructor applications.</p>
-                        <p className="mt-2 text-gray-400">Check back soon for our full team listing!</p>
+                    <div className="text-center py-12">
+                        <p className="text-gray-500">No instructors found.</p>
                     </div>
                 )}
             </div>
@@ -122,7 +175,7 @@ export default function InstructorsPage() {
                     <h2 className="text-3xl font-extrabold text-gray-900">Ready to choose your instructor?</h2>
                     <p className="mt-4 text-lg text-gray-500">Enroll today and ask for your preferred instructor during orientation.</p>
                     <div className="mt-8">
-                        <a href="/enroll" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-brand hover:bg-brand-dark md:py-4 md:text-lg md:px-10 shadow-md transition-all">
+                        <a href="/enroll" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-accent-dark md:py-4 md:text-lg md:px-10 shadow-md transition-all">
                             Enroll Now
                         </a>
                     </div>

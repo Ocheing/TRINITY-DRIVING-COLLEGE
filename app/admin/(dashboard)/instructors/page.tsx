@@ -2,13 +2,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabaseClient';
+import { createClient } from '@/utils/supabase/client';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Trash2, Edit, Plus, User, Loader2 } from 'lucide-react';
 import type { Instructor } from '@/types';
 
 export default function AdminInstructorsPage() {
+    const supabase = createClient();
     const [instructors, setInstructors] = useState<Instructor[]>([]);
     const [loading, setLoading] = useState(true);
     const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -74,13 +75,15 @@ export default function AdminInstructorsPage() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold text-gray-900">Instructor Management</h1>
-                <Link
-                    href="/admin/instructors/new"
-                    className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand hover:bg-brand-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand"
-                >
-                    <Plus className="h-5 w-5 mr-2" />
-                    Add Instructor
-                </Link>
+                {instructors.length > 0 && (
+                    <Link
+                        href="/admin/instructors/new"
+                        className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand hover:bg-brand-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand"
+                    >
+                        <Plus className="h-5 w-5 mr-2" />
+                        Add Instructor
+                    </Link>
+                )}
             </div>
 
             {instructors.length === 0 ? (

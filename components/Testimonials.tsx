@@ -2,7 +2,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { supabase } from '@/lib/supabaseClient';
+import { createClient } from '@/utils/supabase/client';
 import { useEffect, useState } from 'react';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
@@ -13,9 +13,11 @@ interface Testimonial {
     role: string;
     content: string;
     is_published: boolean;
+    image_url?: string;
 }
 
 export default function Testimonials() {
+    const supabase = createClient();
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -69,7 +71,7 @@ export default function Testimonials() {
     }
 
     return (
-        <div className="relative py-16 lg:py-24 overflow-hidden">
+        <div className="relative py-12 lg:py-16 overflow-hidden">
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-brand-dark/90 mix-blend-multiply z-10" />
@@ -84,8 +86,8 @@ export default function Testimonials() {
             </div>
 
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-20">
-                <div className="text-center mb-16">
-                    <h2 className="text-base font-semibold text-brand-light tracking-wide uppercase">Testimonials</h2>
+                <div className="text-center mb-10">
+                    <h2 className="text-sm font-semibold text-brand-light tracking-wide uppercase">Testimonials</h2>
                     <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
                         What Our Students Say
                     </p>
@@ -98,21 +100,25 @@ export default function Testimonials() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.2 }}
-                            className="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-white/10 relative hover:-translate-y-2 transition-transform duration-300"
+                            className="bg-white/10 backdrop-blur-md p-6 rounded-xl shadow-xl border border-white/10 relative hover:-translate-y-2 transition-transform duration-300"
                         >
-                            <div className="flex items-center mb-6">
+                            <div className="flex items-center mb-4">
                                 {[...Array(5)].map((_, i) => (
-                                    <Star key={`star-${testimonial.id}-${i}`} className="h-5 w-5 text-yellow-400 fill-current" />
+                                    <Star key={`star-${testimonial.id}-${i}`} className="h-4 w-4 text-yellow-400 fill-current" />
                                 ))}
                             </div>
-                            <p className="text-gray-100 mb-6 italic text-lg leading-relaxed">"{testimonial.content}"</p>
-                            <div className="flex items-center">
-                                <div className="h-10 w-10 rounded-full bg-white text-brand flex items-center justify-center font-bold text-sm">
-                                    {testimonial.name.slice(0, 2).toUpperCase()}
-                                </div>
+                            <p className="text-gray-100 mb-4 italic text-base leading-relaxed line-clamp-4">"{testimonial.content}"</p>
+                            <div className="flex items-center mt-auto">
+                                {testimonial.image_url ? (
+                                    <img src={testimonial.image_url} alt={testimonial.name} className="h-10 w-10 rounded-full object-cover border border-white/20" />
+                                ) : (
+                                    <div className="h-10 w-10 rounded-full bg-white text-brand flex items-center justify-center font-bold text-sm">
+                                        {testimonial.name.slice(0, 2).toUpperCase()}
+                                    </div>
+                                )}
                                 <div className="ml-3">
-                                    <p className="text-sm font-bold text-white">{testimonial.name}</p>
-                                    <p className="text-xs text-brand-light font-medium uppercase tracking-wider">{testimonial.role}</p>
+                                    <p className="text-sm font-bold text-white leading-tight">{testimonial.name}</p>
+                                    <p className="text-xs text-brand-light font-medium uppercase tracking-wider leading-tight">{testimonial.role}</p>
                                 </div>
                             </div>
                         </motion.div>

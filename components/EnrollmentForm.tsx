@@ -4,7 +4,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { supabase } from '@/lib/supabaseClient';
+import { createClient } from '@/utils/supabase/client';
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 
@@ -129,6 +129,7 @@ export default function EnrollmentForm() {
 
 
     async function onSubmit(values: FormValues) {
+        const supabase = createClient();
         setLoading(true);
         setError('');
         try {
@@ -187,7 +188,7 @@ export default function EnrollmentForm() {
                 <p className="mt-2 text-sm text-gray-500">Our team will contact you shortly to confirm your schedule.</p>
                 <button
                     onClick={() => setSuccess(false)}
-                    className="mt-6 text-brand font-semibold hover:underline transition-colors"
+                    className="mt-6 text-accent font-semibold hover:underline transition-colors"
                 >
                     Submit another enrollment
                 </button>
@@ -321,7 +322,7 @@ export default function EnrollmentForm() {
                 <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-brand hover:bg-brand-dark shadow-[0_4px_14px_-4px_var(--color-brand)] hover:shadow-[0_6px_20px_-4px_var(--color-brand)]'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand transition-all duration-300`}
+                    className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-accent hover:bg-accent-dark shadow-[0_4px_14px_-4px_var(--color-accent)] hover:shadow-[0_6px_20px_-4px_var(--color-accent)]'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-all duration-300`}
                 >
                     {loading ? 'Submitting...' : 'Enroll Now'}
                 </button>

@@ -58,7 +58,7 @@ export default function Footer() {
                             </div>
                             <h3 className="text-xl font-bold">Trinity Driving</h3>
                         </div>
-                        <p className="text-brand font-semibold italic mb-2">"TOGETHER LETS DRIVE"</p>
+                        <p className="text-accent font-semibold italic mb-2">"TOGETHER LETS DRIVE"</p>
                         <p className="text-gray-400 text-sm">
                             Professional driving instruction for safe and confident drivers. Licensed and accredited.
                         </p>
@@ -103,15 +103,15 @@ export default function Footer() {
                         <h3 className="text-lg font-semibold mb-4 text-white">Contact Info</h3>
                         <ul className="space-y-4">
                             <li className="flex items-start">
-                                <MapPin className="h-6 w-6 text-brand mr-2 mt-1 flex-shrink-0" />
+                                <MapPin className="h-6 w-6 text-accent mr-2 mt-1 flex-shrink-0" />
                                 <span className="text-gray-400">Moi Drive, Nairobi, Kenya</span>
                             </li>
                             <li className="flex items-center">
-                                <Phone className="h-5 w-5 text-brand mr-2 flex-shrink-0" />
+                                <Phone className="h-5 w-5 text-accent mr-2 flex-shrink-0" />
                                 <a href="tel:+254722999309" className="text-gray-400 hover:text-white transition-colors">0722 999 309</a>
                             </li>
                             <li className="flex items-center">
-                                <Mail className="h-5 w-5 text-brand mr-2 flex-shrink-0" />
+                                <Mail className="h-5 w-5 text-accent mr-2 flex-shrink-0" />
                                 <a href="mailto:Trinitydriving23@gmail.com" className="text-gray-400 hover:text-white transition-colors break-all">Trinitydriving23@gmail.com</a>
                             </li>
                         </ul>
@@ -135,7 +135,7 @@ export default function Footer() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-brand hover:bg-brand-dark text-white px-4 py-2.5 rounded-md font-medium transition-all duration-200 flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+                                className="w-full bg-accent hover:bg-accent-dark text-white px-4 py-2.5 rounded-md font-medium transition-all duration-200 flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
                             >
                                 {loading ? (
                                     <>
@@ -170,9 +170,6 @@ export default function Footer() {
                         <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
                         <span className="text-gray-700">|</span>
                         <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
-                        <Link href="/login" className="ml-4 text-gray-600 hover:text-white transition-colors opacity-50 hover:opacity-100 p-1" aria-label="Admin Login">
-                            <Key className="w-3 h-3" />
-                        </Link>
                     </div>
                 </div>
             </div>

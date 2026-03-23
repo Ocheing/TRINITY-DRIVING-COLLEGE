@@ -2,16 +2,17 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { supabase } from '@/lib/supabaseClient';
+import { createClient } from '@/utils/supabase/client';
 import { Star, Loader2, Quote, ChevronLeft, ChevronRight, MessageSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Testimonial } from '@/types';
 
 export default function TestimonialsPage() {
+    const supabase = createClient();
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
     const [loading, setLoading] = useState(true);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [isPaused, setIsPaused] = useState(false);
+    const [visibleCount, setVisibleCount] = useState(4);
+    const [loadingMore, setLoadingMore] = useState(false);
 
     const fetchTestimonials = useCallback(async () => {
         try {
@@ -55,42 +56,6 @@ export default function TestimonialsPage() {
         };
     }, [fetchTestimonials]);
 
-    // Auto-slide carousel
-    useEffect(() => {
-        if (testimonials.length <= 1 || isPaused) return;
-
-        const interval = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-        }, 5000);
-
-        return () => clearInterval(interval);
-    }, [testimonials.length, isPaused]);
-
-    const goTo = (index: number) => {
-        setCurrentIndex(index);
-    };
-
-    const goNext = () => {
-        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    };
-
-    const goPrev = () => {
-        setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    };
-
-    // Compute which testimonials to show (current + next for desktop)
-    const getVisibleTestimonials = () => {
-        if (testimonials.length === 0) return [];
-        if (testimonials.length === 1) return [{ testimonial: testimonials[0], index: 0 }];
-        const nextIndex = (currentIndex + 1) % testimonials.length;
-        return [
-            { testimonial: testimonials[currentIndex], index: currentIndex },
-            { testimonial: testimonials[nextIndex], index: nextIndex },
-        ];
-    };
-
-    const visibleTestimonials = getVisibleTestimonials();
-
     return (
         <div className="bg-white min-h-screen">
             {/* ══════════ HERO SECTION ══════════ */}
@@ -131,9 +96,9 @@ export default function TestimonialsPage() {
                 <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#0a1520] to-transparent" />
             </section>
 
-            {/* ══════════ CAROUSEL SECTION ══════════ */}
-            <section className="py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-6xl mx-auto">
+            {/* ══════════ TESTIMONIALS GRID SECTION ══════════ */}
+            <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gray-50/60 transition-all">
+                <div className="max-w-7xl mx-auto">
                     {loading ? (
                         <div className="flex justify-center items-center h-64">
                             <Loader2 className="h-10 w-10 animate-spin text-brand" />
@@ -147,98 +112,73 @@ export default function TestimonialsPage() {
                             <p className="text-gray-500 text-sm">Check back soon — our students are sharing their stories!</p>
                         </div>
                     ) : (
-                        <div
-                            className="relative"
-                            onMouseEnter={() => setIsPaused(true)}
-                            onMouseLeave={() => setIsPaused(false)}
-                        >
-                            {/* Navigation arrows */}
-                            {testimonials.length > 1 && (
-                                <>
-                                    <button
-                                        onClick={goPrev}
-                                        className="absolute -left-2 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-lg flex items-center justify-center hover:bg-gray-50 hover:shadow-xl transition-all"
-                                        aria-label="Previous testimonial"
-                                    >
-                                        <ChevronLeft className="w-5 h-5 text-gray-700" />
-                                    </button>
-                                    <button
-                                        onClick={goNext}
-                                        className="absolute -right-2 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-lg flex items-center justify-center hover:bg-gray-50 hover:shadow-xl transition-all"
-                                        aria-label="Next testimonial"
-                                    >
-                                        <ChevronRight className="w-5 h-5 text-gray-700" />
-                                    </button>
-                                </>
-                            )}
-
-                            {/* Cards container */}
-                            <div className="overflow-hidden px-2">
-                                <AnimatePresence mode="wait">
-                                    <motion.div
-                                        key={currentIndex}
-                                        initial={{ opacity: 0, x: 60 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: -60 }}
-                                        transition={{ duration: 0.4, ease: 'easeInOut' }}
-                                        className="grid grid-cols-1 lg:grid-cols-2 gap-6"
-                                    >
-                                        {visibleTestimonials.map(({ testimonial, index: tIdx }) => (
-                                            <TestimonialCard key={`${testimonial.id}-${tIdx}`} testimonial={testimonial} />
-                                        ))}
-                                    </motion.div>
+                        <>
+                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start">
+                                <AnimatePresence>
+                                    {testimonials.slice(0, visibleCount).map((testimonial, idx) => (
+                                        <motion.div
+                                            key={testimonial.id}
+                                            initial={{ opacity: 0, y: 30 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true, margin: "-10px" }}
+                                            transition={{ duration: 0.4, delay: (idx % 4) * 0.08 }}
+                                        >
+                                            <TestimonialCard testimonial={testimonial} />
+                                        </motion.div>
+                                    ))}
                                 </AnimatePresence>
                             </div>
 
-                            {/* Dot indicators */}
-                            {testimonials.length > 1 && (
-                                <div className="flex items-center justify-center gap-2 mt-10">
-                                    {testimonials.map((_, idx) => (
-                                        <button
-                                            key={idx}
-                                            onClick={() => goTo(idx)}
-                                            className={`transition-all duration-300 rounded-full ${idx === currentIndex
-                                                ? 'w-8 h-2.5 bg-brand'
-                                                : 'w-2.5 h-2.5 bg-gray-300 hover:bg-gray-400'
-                                                }`}
-                                            aria-label={`Go to testimonial ${idx + 1}`}
-                                        />
-                                    ))}
-                                </div>
+                            {/* ── Load More Button ── */}
+                            {visibleCount < testimonials.length && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="mt-14 flex flex-col items-center gap-4"
+                                >
+                                    <p className="text-sm text-gray-500 font-medium">
+                                        Showing <span className="text-gray-900">{visibleCount}</span> of{' '}
+                                        <span className="text-gray-900">{testimonials.length}</span> testimonials
+                                    </p>
+                                    <button
+                                        onClick={() => {
+                                            setLoadingMore(true);
+                                            setTimeout(() => {
+                                                setVisibleCount(prev => prev + 4);
+                                                setLoadingMore(false);
+                                            }, 400);
+                                        }}
+                                        disabled={loadingMore}
+                                        className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-brand to-blue-700 text-white font-semibold text-sm shadow-lg hover:shadow-brand/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                                    >
+                                        {loadingMore ? (
+                                            <>
+                                                <Loader2 className="h-4 w-4 animate-spin" />
+                                                Loading...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <MessageSquare className="h-4 w-4" />
+                                                Load More Reviews
+                                            </>
+                                        )}
+                                    </button>
+                                </motion.div>
                             )}
-                        </div>
+
+                            {!loadingMore && visibleCount >= testimonials.length && testimonials.length > 4 && (
+                                <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="mt-12 text-center text-sm font-medium text-gray-400"
+                                >
+                                    ✓ All testimonials loaded
+                                </motion.p>
+                            )}
+                        </>
                     )}
                 </div>
             </section>
-
-            {/* ══════════ FULL GRID SECTION ══════════ */}
-            {!loading && testimonials.length > 0 && (
-                <section className="pb-20 px-4 sm:px-6 lg:px-8 bg-gray-50/60">
-                    <div className="max-w-6xl mx-auto pt-16">
-                        <div className="text-center mb-12">
-                            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">
-                                All <span className="text-brand">Reviews</span>
-                            </h2>
-                            <p className="text-gray-500 text-sm mt-2">
-                                Every voice matters. Here&apos;s what all our students have to say.
-                            </p>
-                        </div>
-                        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                            {testimonials.map((testimonial, idx) => (
-                                <motion.div
-                                    key={testimonial.id}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-40px" }}
-                                    transition={{ duration: 0.4, delay: idx * 0.05 }}
-                                >
-                                    <TestimonialCard testimonial={testimonial} />
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            )}
         </div>
     );
 }
@@ -270,11 +210,15 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             </p>
 
             {/* Student info */}
-            <div className="flex items-center border-t border-gray-100 pt-5">
-                {/* Avatar with initials */}
-                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-brand to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-sm">
-                    {testimonial.name.charAt(0).toUpperCase()}
-                </div>
+            <div className="flex items-center border-t border-gray-100 pt-5 mt-auto">
+                {/* Avatar with initials or Image */}
+                {testimonial.image_url ? (
+                    <img src={testimonial.image_url} alt={testimonial.name} className="w-11 h-11 rounded-full object-cover border border-gray-200 shadow-sm" />
+                ) : (
+                    <div className="w-11 h-11 rounded-full bg-gradient-to-br from-brand to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-sm shrink-0">
+                        {testimonial.name.charAt(0).toUpperCase()}
+                    </div>
+                )}
                 <div className="ml-3">
                     <h4 className="text-sm font-bold text-gray-900">{testimonial.name}</h4>
                     <p className="text-xs text-brand font-semibold uppercase tracking-wider">{testimonial.role}</p>

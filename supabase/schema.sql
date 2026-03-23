@@ -57,6 +57,7 @@ create table testimonials (
   role text,
   content text not null,
   rating integer check (rating >= 1 and rating <= 5),
+  image_url text,
   is_published boolean default false,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );

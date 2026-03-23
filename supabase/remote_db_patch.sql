@@ -100,6 +100,7 @@ alter table public.instructors add column if not exists certifications text[] de
 -- Testimonials
 alter table public.testimonials add column if not exists role text;
 alter table public.testimonials add column if not exists content text;
+alter table public.testimonials add column if not exists image_url text;
 alter table public.testimonials add column if not exists is_published boolean default false;
 -- Map message to content if content is null
 -- Map message to content if content is null (Only if message column exists)

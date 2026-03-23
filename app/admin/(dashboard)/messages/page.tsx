@@ -11,8 +11,13 @@ export default async function AdminMessages() {
         .order('created_at', { ascending: false });
 
     return (
-        <div className="bg-white shadow rounded-lg overflow-hidden">
-            <div className="px-6 py-5 border-b border-gray-200 flex justify-between items-center">
+        <div className="space-y-6">
+            <div className="flex justify-between items-center">
+                <h1 className="text-2xl font-bold text-gray-900">Messages</h1>
+            </div>
+            
+            <div className="bg-white shadow rounded-lg overflow-hidden">
+                <div className="px-6 py-5 border-b border-gray-200 flex justify-between items-center">
                 <h3 className="text-xl font-semibold leading-6 text-gray-900">
                     Inbox
                 </h3>
@@ -49,6 +54,7 @@ export default async function AdminMessages() {
                         No messages received yet.
                     </div>
                 )}
+            </div>
             </div>
         </div>
     );

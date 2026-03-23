@@ -11,6 +11,7 @@ export default function NewCoursePage() {
     const [price, setPrice] = useState('');
     const [duration, setDuration] = useState('');
     const [loading, setLoading] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
 
     const supabase = createClient();
     const router = useRouter();
@@ -18,6 +19,7 @@ export default function NewCoursePage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
+        setErrorMsg('');
 
         try {
             const { error } = await supabase.from('courses').insert({
@@ -32,9 +34,9 @@ export default function NewCoursePage() {
 
             router.push('/admin/courses');
             router.refresh();
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error creating course:', error);
-            alert('Failed to create course');
+            setErrorMsg(error.message || 'Failed to create course');
         } finally {
             setLoading(false);
         }
@@ -44,6 +46,11 @@ export default function NewCoursePage() {
         <div className="bg-white p-8 rounded-lg shadow-md max-w-3xl mx-auto">
             <h1 className="text-2xl font-bold mb-6 text-gray-900">Create New Course</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
+                {errorMsg && (
+                    <div className="bg-red-50 border-l-4 border-red-500 p-4">
+                        <p className="text-sm text-red-700">{errorMsg}</p>
+                    </div>
+                )}
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Course Title</label>
                     <input

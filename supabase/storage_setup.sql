@@ -12,6 +12,10 @@ insert into storage.buckets (id, name, public)
 values ('course-images', 'course-images', true)
 on conflict (id) do nothing;
 
+insert into storage.buckets (id, name, public)
+values ('testimonials', 'testimonials', true)
+on conflict (id) do nothing;
+
 -- 2. Storage Policies
 -- We generally allow public read access and authenticated upload/modify access.
 -- Since the admin panel is protected, 'authenticated' is a sufficient check for now.
@@ -54,3 +58,16 @@ create policy "Auth Update Courses" on storage.objects for update using ( bucket
 
 drop policy if exists "Auth Delete Courses" on storage.objects;
 create policy "Auth Delete Courses" on storage.objects for delete using ( bucket_id = 'course-images' and auth.role() = 'authenticated' );
+
+-- POLICY: Testimonials (Bucket: testimonials)
+drop policy if exists "Public Access Testimonials" on storage.objects;
+create policy "Public Access Testimonials" on storage.objects for select using ( bucket_id = 'testimonials' );
+
+drop policy if exists "Auth Upload Testimonials" on storage.objects;
+create policy "Auth Upload Testimonials" on storage.objects for insert with check ( bucket_id = 'testimonials' and auth.role() = 'authenticated' );
+
+drop policy if exists "Auth Update Testimonials" on storage.objects;
+create policy "Auth Update Testimonials" on storage.objects for update using ( bucket_id = 'testimonials' and auth.role() = 'authenticated' );
+
+drop policy if exists "Auth Delete Testimonials" on storage.objects;
+create policy "Auth Delete Testimonials" on storage.objects for delete using ( bucket_id = 'testimonials' and auth.role() = 'authenticated' );

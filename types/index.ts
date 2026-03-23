@@ -21,6 +21,7 @@ export interface Testimonial {
     role: string;
     content: string;
     rating: number;
+    image_url?: string;
     is_published: boolean;
     created_at: string;
 }
